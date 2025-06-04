@@ -29,21 +29,56 @@ jobs:
         cache: true
     
     - name: Flutter Doctor
-      run: flutter doctor -v
+      run: |
+        flutter doctor -v
+        echo "Java version check:"
+        java -version
+        echo "Flutter version:"
+        flutter --version
     
     - name: Clean and get dependencies
       run: |
         flutter clean
         flutter pub get
+        echo "Dependencies resolved successfully"
+    
+    - name: Run Flutter analyze
+      run: |
+        flutter analyze
+        echo "Code analysis completed"
+    
+    - name: Run tests
+      run: |
+        flutter test
+        echo "Tests completed"
+    
+    - name: Check Android setup
+      run: |
+        cd android
+        ls -la
+        echo "Gradle wrapper properties:"
+        cat gradle/wrapper/gradle-wrapper.properties
+        echo "Build.gradle content:"
+        head -20 build.gradle
+        cd ..
     
     - name: Build APK (Debug first for testing)
       run: |
-        flutter build apk --debug
+        echo "Starting debug build..."
+        flutter build apk --debug --verbose
         echo "Debug APK built successfully"
     
     - name: Build Release APK
       run: |
-        flutter build apk --release
+        echo "Starting release build..."
+        flutter build apk --release --verbose
+        echo "Release APK built successfully"
+    
+    - name: List build outputs
+      run: |
+        echo "Build outputs:"
+        find build -name "*.apk" -type f
+        ls -la build/app/outputs/flutter-apk/ || echo "APK directory not found"
     
     - name: Upload Debug APK
       uses: actions/upload-artifact@v4
@@ -64,4 +99,7 @@ jobs:
         echo "🎉 APK Build Successful!"
         echo "📱 App: ADSD Maintenance"
         echo "🔧 Flutter: 3.24.5"
-        echo "📦 Download from Artifacts section" 
+        echo "☕ Java: 17"
+        echo "📦 Download from Artifacts section"
+        echo "📊 APK sizes:"
+        du -h build/app/outputs/flutter-apk/*.apk || echo "No APK files found" 
