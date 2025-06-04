@@ -12,7 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
     
     - name: Setup Java
       uses: actions/setup-java@v4
@@ -30,15 +31,38 @@ jobs:
     - name: Flutter Doctor
       run: flutter doctor -v
     
+    - name: Clean Flutter
+      run: flutter clean
+    
     - name: Get dependencies
       run: flutter pub get
     
     - name: Build APK
-      run: flutter build apk --release --verbose
+      run: |
+        flutter build apk --release \
+          --target-platform android-arm64 \
+          --dart-define=flutter.inspector.structuredErrors=false
+    
+    - name: Verify APK exists
+      run: |
+        if [ -f "build/app/outputs/flutter-apk/app-release.apk" ]; then
+          echo "✅ APK successfully built"
+          ls -la build/app/outputs/flutter-apk/
+        else
+          echo "❌ APK not found"
+          exit 1
+        fi
     
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-release-apk
         path: build/app/outputs/flutter-apk/app-release.apk
-        retention-days: 30 
+        retention-days: 30
+        
+    - name: Build Summary
+      run: |
+        echo "🎉 APK Build Successful!"
+        echo "📱 App: ADSD Maintenance"
+        echo "🔧 Flutter: 3.32.1"
+        echo "📦 Download from Artifacts section" 
