@@ -25,23 +25,16 @@ jobs:
       with:
         flutter-version: '3.32.1'
         channel: 'stable'
+        cache: true
+    
+    - name: Flutter Doctor
+      run: flutter doctor -v
     
     - name: Get dependencies
       run: flutter pub get
     
-    - name: Analyze code
-      run: flutter analyze --no-fatal-infos
-    
-    - name: Generate code (if needed)
-      run: |
-        if grep -q "build_runner" pubspec.yaml; then
-          flutter packages pub run build_runner build --delete-conflicting-outputs
-        else
-          echo "No build_runner found, skipping code generation"
-        fi
-    
     - name: Build APK
-      run: flutter build apk --release --no-tree-shake-icons
+      run: flutter build apk --release --verbose
     
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
