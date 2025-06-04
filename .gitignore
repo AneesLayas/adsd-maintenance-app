@@ -1,0 +1,45 @@
+# Flutter specific
+build/
+.dart_tool/
+.packages
+.metadata
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# IDE specific
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Local files
+*.log
+*.tmp
+
+# Android specific
+android/app/debug
+android/app/profile
+android/app/release
+android/.gradle
+android/captures/
+android/gradlew
+android/gradlew.bat
+android/local.properties
+android/**/GeneratedPluginRegistrant.java
+
+# iOS specific (if applicable)
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Runner/GeneratedPluginRegistrant.*
+
+# Web specific
+web/main.dart
+
+# Coverage
+coverage/ 
