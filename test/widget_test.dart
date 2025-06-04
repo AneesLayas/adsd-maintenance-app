@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:adsd_maintenance_app/main.dart';
 
 void main() {
   testWidgets('App should start without crashing', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const ProviderScope(child: MyApp()));
+    await tester.pumpWidget(const MyApp());
 
     // Verify that the app starts (no crashes)
     expect(find.byType(MaterialApp), findsOneWidget);
   });
 
-  testWidgets('App shows loading or login screen', (WidgetTester tester) async {
-    await tester.pumpWidget(const ProviderScope(child: MyApp()));
+  testWidgets('App shows ADSD Maintenance title', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
     
-    // Should show either loading indicator or login elements
+    // Should show the app title
     await tester.pump();
     
-    // Check for loading or login elements
-    final hasLoading = find.byType(CircularProgressIndicator).evaluate().isNotEmpty;
-    final hasLoginElements = find.text('ADSD Maintenance').evaluate().isNotEmpty ||
-                            find.text('Login').evaluate().isNotEmpty;
+    // Check for the main title
+    expect(find.text('ADSD Maintenance'), findsOneWidget);
+    expect(find.text('ADSD Maintenance App'), findsOneWidget);
+  });
+
+  testWidgets('App shows maintenance features', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+    await tester.pump();
     
-    expect(hasLoading || hasLoginElements, isTrue, 
-           reason: 'App should show loading or login screen');
+    // Check for maintenance features
+    expect(find.text('Offline First'), findsOneWidget);
+    expect(find.text('Auto Sync'), findsOneWidget);
+    expect(find.text('Local Storage'), findsOneWidget);
   });
 } 
