@@ -11,54 +11,13 @@ dependencies:
     sdk: flutter
   
   # UI and Material Design
-  cupertino_icons: ^1.0.2
-  material_design_icons_flutter: ^7.0.7296
-  
-  # Database and Storage
-  sqflite: ^2.3.0
-  path: ^1.8.3
-  shared_preferences: ^2.2.2
-  
-  # Networking and Sync
-  http: ^1.1.0
-  connectivity_plus: ^4.0.2
-  dio: ^5.3.2
-  
-  # State Management
-  provider: ^6.0.5
-  riverpod: ^2.4.4
-  flutter_riverpod: ^2.4.4
-  
-  # Forms and Input
-  reactive_forms: ^16.1.1
-  signature: ^5.4.0
-  
-  # Date and Time
-  intl: ^0.18.1
-  
-  # File handling
-  path_provider: ^2.1.1
-  
-  # PDF Generation
-  pdf: ^3.10.4
-  printing: ^5.11.0
-  
-  # JSON handling
-  json_annotation: ^4.8.1
-  
-  # Device info
-  device_info_plus: ^9.1.0
-  
-  # Security
-  crypto: ^3.0.3
+  cupertino_icons: ^1.0.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   
   flutter_lints: ^3.0.0
-  json_serializable: ^6.7.1
-  build_runner: ^2.4.7
 
 flutter:
   uses-material-design: true
